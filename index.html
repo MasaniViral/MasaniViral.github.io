@@ -1796,23 +1796,29 @@
       const TOTAL = 20;
 
       function tryLoadImage(imgEl, placeholder, index) {
-        const jpgSrc = `sketches/sketch${index}.jpg`;
-        const pngSrc = `sketches/sketch${index}.png`;
+        // Try all common case variations
+        const sources = [
+          `sketches/sketch${index}.jpg`,
+          `sketches/sketch${index}.JPG`,
+          `sketches/sketch${index}.png`,
+          `sketches/sketch${index}.PNG`,
+        ];
+        let attempt = 0;
 
-        function onLoaded(src) {
-          imgEl.src = src;
-          imgEl.classList.add('loaded');
-          placeholder.classList.add('hidden');
+        function tryNext() {
+          if (attempt >= sources.length) return; // all failed, leave placeholder
+          const src = sources[attempt++];
+          const temp = new Image();
+          temp.onload = () => {
+            imgEl.src = src;
+            imgEl.classList.add('loaded');
+            placeholder.classList.add('hidden');
+          };
+          temp.onerror = tryNext;
+          temp.src = src;
         }
 
-        const tempJpg = new Image();
-        tempJpg.onload = () => onLoaded(jpgSrc);
-        tempJpg.onerror = () => {
-          const tempPng = new Image();
-          tempPng.onload = () => onLoaded(pngSrc);
-          tempPng.src = pngSrc;
-        };
-        tempJpg.src = jpgSrc;
+        tryNext();
       }
 
       for (let i = 1; i <= TOTAL; i++) {
