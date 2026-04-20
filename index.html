@@ -1855,10 +1855,22 @@
       }
     })();
 
-    /* ── ANIMATIONS ── */
-    (function () {
-      const list = document.getElementById('anim-list');
-      const defs = [
+/* ── ANIMATIONS ── */
+(function () {
+  const list = document.getElementById('anim-list');
+  const defs = [
+        {
+          title: 'Dragon Spirit',
+          desc: 'An exploration of fluid character movement and mythical storytelling, bringing the power of the dragon to life.',
+          tag: 'Character',
+          ytId: 'fEZpKW6Xjew'
+        },
+        {
+          title: 'Netflix Intro Concept',
+          desc: 'A high-energy motion graphics piece reimagining the iconic Netflix sequence with custom timing and visual flair.',
+          tag: 'Motion Graphics',
+          ytId: 'xq7a6nQqiIw'
+        },
         {
           title: 'Indiesemic',
           desc: 'A creative animation project that brings a unique visual story to life. Crafted with passion and attention to every frame.',
@@ -1890,7 +1902,7 @@
           ytId: 'gneNsXhMYSU'
         },
       ];
-
+  
       defs.forEach((d, i) => {
         const thumbUrl = `https://img.youtube.com/vi/${d.ytId}/hqdefault.jpg`;
         const row = document.createElement('div');
